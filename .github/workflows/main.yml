@@ -1,0 +1,26 @@
+name: Build & Publish app
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+      - name: npm install
+        run: |
+          npm install
+          npm install @angular/cli
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          npm version patch --force -m "Version %s"
+          npm run build 
+          git commit -m "Version build"
+          git push
+          git push --tags
