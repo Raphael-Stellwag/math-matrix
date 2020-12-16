@@ -19,7 +19,6 @@ jobs:
           git config user.email github-actions@github.com
           npm version patch --force -m "Version %s"
           git commit -m "Version build"
-          git push
           git push --tags
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v2
