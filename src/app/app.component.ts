@@ -2,7 +2,7 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { VektorRechnerService } from './vektor-rechner.service';
-
+var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
 
 const NEW_ELEMENT_DATA: object[] = [
   {1:1, 2: 2, 3: 3},//, get: (element: any, i: number) => `${element['x'+i]}` },
@@ -17,14 +17,16 @@ const NEW_ELEMENT_DATA: object[] = [
 })
 export class AppComponent {
   title = 'math-matrix';
-  anzahl_unbekannte = 3;
+  anzahl_unbekannte: string = '3';
   bool_natuerlich = true;
-  show_results = true;
+  show_results = false;
   results = {};
-  constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){}
+
+  constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){
+
+    }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
 
   displayedColumns: string[] = ['Nr', '1', '2', '3', 'Summe'];
   dataSource: object[] = [
@@ -38,7 +40,7 @@ export class AppComponent {
   sizeChanged() {
     this.show_results = false;
 
-    let change: number = this.anzahl_unbekannte - this.keys.length
+    let change: number = parseInt(this.anzahl_unbekannte) - this.keys.length
     if (change > 0) {
       this.dataSource.forEach(element => {
         for (let index = 0; index < change; index++) {
@@ -47,20 +49,20 @@ export class AppComponent {
       });
       let obj = {};
       this.displayedColumns = ["Nr"]
-      for (let index = 0; index < this.anzahl_unbekannte; index++) {
+      for (let index = 0; index < parseInt(this.anzahl_unbekannte); index++) {
         obj[(index + 1)] = 0;
         this.displayedColumns.push(index + 1 + "");
       }
-      obj['Summe'] = 0
+      this.keys = Object.keys(obj);
+      obj['Summe'] = 0;
       for (let index = 0; index < change; index++) {
         this.dataSource.push(obj);          
       }
-      this.keys = Object.keys(this.dataSource[0]);
     } else if (change < 0) {
       this.dataSource = this.deepCopyObjectArray(this.dataSource, this.anzahl_unbekannte)
       this.displayedColumns = [];
       this.keys = [];
-      for (let index1 = 0; index1 < this.anzahl_unbekannte; index1++) {
+      for (let index1 = 0; index1 < parseInt(this.anzahl_unbekannte); index1++) {
         this.keys.push(index1 + 1 + "");
       }
       this.displayedColumns = this.displayedColumns.concat("Nr", this.keys);
@@ -81,43 +83,31 @@ export class AppComponent {
     return obj;
   }
 
-
   calculate() {
-    let out: string = "";
-    this.dataSource.forEach(function (element, index) {
-      out = " " + index + ";";
-      Object.keys(element).forEach(function (key) {
-        out = out + " " + key + ": "+ element[key];
-      });
-      console.log(out);
-    });
+    console.log(this.dataSource);
 
-
-    let copy = this.deepCopyObjectArray(this.dataSource, this.anzahl_unbekannte);
-    for(let index = 0;  index < this.anzahl_unbekannte-1; index++) {
-      for(let i =0; i < index; i++) {
-        let Subtrahend = copy[0];
-        let Minnuend = copy[index+1];
-        let skalar = Minnuend[i+1]/Subtrahend[i+1];
-        let obj = this.vektorRechner.skalarSubtraktion(Minnuend, Subtrahend, skalar);
-        copy[index+1] = obj;
+    let sum = [];
+    let matrix = [];
+    for(let row of this.dataSource) {
+      let newMatrixRow = [];
+      for(let key of Object.keys(row)) {
+        if (key == "Summe") {
+          sum.push(row[key]);
+        } else {
+          newMatrixRow.push(row[key]);
+        }
       }
-      let Subtrahend = copy[index];
-      let Minnuend = copy[index+1];
-      let skalar = Minnuend[index+1]/Subtrahend[index+1];
-      let obj = this.vektorRechner.skalarSubtraktion(Minnuend, Subtrahend, skalar);
-      copy[index+1] = obj;
+      matrix.push(newMatrixRow);
     }
-    this.results = {};
-    for(let index = this.anzahl_unbekannte; index > 0; index--) {
-      for(let i = index+1; i <= this.anzahl_unbekannte; i ++) {
-        copy[index-1]["Summe"] = copy[index-1]["Summe"] - copy[index-1][i] * this.results[i];
-        copy[index-1][i] = 0;
-      }
+    console.log(matrix);
+    console.log(sum);
 
-      let result = copy[index-1]["Summe"] / copy[index-1][index];
-      this.results[index] = result;
+    this.results = null;
+    this.results = linear.solve(matrix, sum);
+    if (this.results instanceof Array) {
+      this.show_results = true;
+    } else {
+      this.show_results = false;
     }
-    this.show_results = true;
   }
 }
