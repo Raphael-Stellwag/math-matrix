@@ -49,6 +49,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
+              "baseHref": "https://raphael-stellwag.github.io/math-matrix/",
               "buildOptimizer": true,
               "budgets": [
                 {
