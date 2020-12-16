@@ -1,7 +1,5 @@
-import { element } from 'protractor';
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
-import { MatPaginator } from '@angular/material/paginator';
 import { VektorRechnerService } from './vektor-rechner.service';
 var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
 
@@ -17,11 +15,7 @@ export class AppComponent {
   show_results = false;
   results = {};
 
-  constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){
-
-    }
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){}
 
   displayedColumns: string[] = ['Nr', '1', '2', '3', 'Summe'];
   dataSource: object[] = [
