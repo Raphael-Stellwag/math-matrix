@@ -21,6 +21,7 @@ jobs:
           git config user.email github-actions@github.com
           npm version patch --force -m "Version %s"
           npm run build:prod
+          git add .
           git commit -m "Version build"
           git push
           git push --tags
