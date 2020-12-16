@@ -1,14 +1,9 @@
+import { element } from 'protractor';
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { VektorRechnerService } from './vektor-rechner.service';
 var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
-
-const NEW_ELEMENT_DATA: object[] = [
-  {1:1, 2: 2, 3: 3},//, get: (element: any, i: number) => `${element['x'+i]}` },
-  {1:4, 2: 5, 3: 6},//, get: (element: any, i: number) => `${element['x'+i]}` },
-  {1:7, 2: 8, 3: 9},//, get: (element: any, i: number) => `${element['x'+i]}` },
-];
 
 @Component({
   selector: 'app-root',
@@ -35,41 +30,56 @@ export class AppComponent {
     {1:2, 2: 2, 3: 1, Summe: 3},
   ];
 
-  keys: string[] = ['1','2','3'];
+  anzahlUnbekannteCountArray(): Array<number> { 
+    return Array(parseInt(this.anzahl_unbekannte)); 
+  } 
 
   sizeChanged() {
     this.show_results = false;
 
-    let change: number = parseInt(this.anzahl_unbekannte) - this.keys.length
-    if (change > 0) {
-      this.dataSource.forEach(element => {
-        for (let index = 0; index < change; index++) {
-          element[(this.keys.length + 1) + (index)] = 0;          
-        }
-      });
-      let obj = {};
-      this.displayedColumns = ["Nr"]
-      for (let index = 0; index < parseInt(this.anzahl_unbekannte); index++) {
-        obj[(index + 1)] = 0;
-        this.displayedColumns.push(index + 1 + "");
-      }
-      this.keys = Object.keys(obj);
-      obj['Summe'] = 0;
-      for (let index = 0; index < change; index++) {
-        this.dataSource.push(obj);          
-      }
-    } else if (change < 0) {
-      this.dataSource = this.deepCopyObjectArray(this.dataSource, this.anzahl_unbekannte)
-      this.displayedColumns = [];
-      this.keys = [];
-      for (let index1 = 0; index1 < parseInt(this.anzahl_unbekannte); index1++) {
-        this.keys.push(index1 + 1 + "");
-      }
-      this.displayedColumns = this.displayedColumns.concat("Nr", this.keys);
+    let countNewRows: number = parseInt(this.anzahl_unbekannte) - (this.displayedColumns.length - 2)
+    if (countNewRows > 0) {
+      this.addRows(countNewRows);
+    } else if (countNewRows < 0) {
+      this.removeRows();
     }
 
-    this.displayedColumns.push("Summe");
     this.changeDetectorRefs.detectChanges();
+  }
+
+  removeRows() {
+    this.dataSource = this.deepCopyObjectArray(this.dataSource, this.anzahl_unbekannte)
+    let keys = ["Nr"];
+    for (let index = 1; index <= parseInt(this.anzahl_unbekannte); index++) {
+      keys.push(index + "");
+    }
+    keys.push("Summe");
+    this.displayedColumns = keys;
+  }
+
+  addRows(countNewRows: number) {
+    let oldCountOfRows = (this.displayedColumns.length - 2); //Substract Nr and Summe
+    
+    // Add the columns for the existing rows
+    for(let element of this.dataSource) {
+      for (let index = 1; index <= countNewRows; index++) {
+        element[oldCountOfRows + index] = 0;          
+      }
+    }
+
+    // Add new rows to the datasource
+    let obj = {};
+    this.displayedColumns = ["Nr"]
+    for (let index = 1; index <= parseInt(this.anzahl_unbekannte); index++) {
+      obj[index] = 0;
+      this.displayedColumns.push(index + "");
+    }
+    this.displayedColumns.push("Summe");
+    obj['Summe'] = 0;
+    for (let index = 0; index < countNewRows; index++) {
+      this.dataSource.push(obj);          
+    }
+
   }
 
   private deepCopyObjectArray(d2Array, count) {
@@ -92,9 +102,9 @@ export class AppComponent {
       let newMatrixRow = [];
       for(let key of Object.keys(row)) {
         if (key == "Summe") {
-          sum.push(row[key]);
+          sum.push(parseInt(row[key]));
         } else {
-          newMatrixRow.push(row[key]);
+          newMatrixRow.push(parseInt(row[key]));
         }
       }
       matrix.push(newMatrixRow);
@@ -103,11 +113,18 @@ export class AppComponent {
     console.log(sum);
 
     this.results = null;
-    this.results = linear.solve(matrix, sum);
-    if (this.results instanceof Array) {
-      this.show_results = true;
-    } else {
+    try {
+      
+      this.results = linear.solve(matrix, sum);
+      if (this.results instanceof Array) {
+        this.show_results = true;
+      } else {
+        this.show_results = false;
+      }
+    } catch {
       this.show_results = false;
+      alert("This is not solveable");
     }
+    
   }
 }
