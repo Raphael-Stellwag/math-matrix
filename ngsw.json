@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1783199759791,
+  "timestamp": 1783203688748,
   "index": "https://raphael-stellwag.github.io/math-matrix/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://raphael-stellwag.github.io/math-matrix/favicon.ico",
         "https://raphael-stellwag.github.io/math-matrix/index.html",
-        "https://raphael-stellwag.github.io/math-matrix/main-RQ2OQ6EY.js",
+        "https://raphael-stellwag.github.io/math-matrix/main-I6IWF5V4.js",
         "https://raphael-stellwag.github.io/math-matrix/manifest.webmanifest",
         "https://raphael-stellwag.github.io/math-matrix/polyfills-5FDKUQTZ.js",
         "https://raphael-stellwag.github.io/math-matrix/styles-Q6OYJU7D.css"
@@ -49,8 +49,8 @@
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/icon.svg": "9a8169032c690189485c1382a7fd8a72893985a8",
     "https://raphael-stellwag.github.io/math-matrix/favicon.ico": "370402f430e50c0947956e4e510c32d1ea4477aa",
     "https://raphael-stellwag.github.io/math-matrix/favicon.svg": "9a8169032c690189485c1382a7fd8a72893985a8",
-    "https://raphael-stellwag.github.io/math-matrix/index.html": "2a6d27255197af6781c7e676af16de017afc0b78",
-    "https://raphael-stellwag.github.io/math-matrix/main-RQ2OQ6EY.js": "96c5b9a1bf9cb9aa2fd2d3c2a6f8615896ca2b72",
+    "https://raphael-stellwag.github.io/math-matrix/index.html": "dea5e7173d2e721ce1e130ccdc18e99f78dfead4",
+    "https://raphael-stellwag.github.io/math-matrix/main-I6IWF5V4.js": "33ab177b2f7dd090ea2c21a1bbfb35d3ed574d4a",
     "https://raphael-stellwag.github.io/math-matrix/manifest.webmanifest": "0c2ea5edad0ebec68486f5889716a377b9932a93",
     "https://raphael-stellwag.github.io/math-matrix/polyfills-5FDKUQTZ.js": "aae1dda5ce0dc87ff4ccd4a96bfca1ae11e45f67",
     "https://raphael-stellwag.github.io/math-matrix/styles-Q6OYJU7D.css": "863cf2286123aaf9b5b8116af4646d9c6052064f"
