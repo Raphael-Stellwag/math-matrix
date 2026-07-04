@@ -54,6 +54,91 @@
             <span class="value">x<sub>{{ i + 1 }}</sub> = {{ r }}</span>
           }
         </div>
+        <details class="trace">
+          <summary>Rechenweg anzeigen</summary>
+          @for (step of steps; track $index) {
+            <div class="step">
+              <p class="step-caption">{{ step.caption }}</p>
+              @if (step.ops.length) {
+                <p class="step-ops">
+                  @for (op of step.ops; track $index) { <span>{{ op }}</span> }
+                </p>
+              }
+              <div class="matrix">
+                @for (row of step.matrix; track $index) {
+                  <div class="matrix-row">
+                    @for (cell of row; track $index; let j = $index) {
+                      <span class="cell" [class.aug]="j === row.length - 1">{{ cell }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </details>
+      </section>
+    }
+    @if (noSolution) {
+      <section class="solution">
+        <h2>Keine Lösung</h2>
+        <p class="note">Das Gleichungssystem ist widersprüchlich.</p>
+        <details class="trace">
+          <summary>Rechenweg anzeigen</summary>
+          @for (step of steps; track $index) {
+            <div class="step">
+              <p class="step-caption">{{ step.caption }}</p>
+              @if (step.ops.length) {
+                <p class="step-ops">
+                  @for (op of step.ops; track $index) { <span>{{ op }}</span> }
+                </p>
+              }
+              <div class="matrix">
+                @for (row of step.matrix; track $index) {
+                  <div class="matrix-row">
+                    @for (cell of row; track $index; let j = $index) {
+                      <span class="cell" [class.aug]="j === row.length - 1">{{ cell }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </details>
+      </section>
+    }
+    @if (generalRows) {
+      <section class="solution">
+        <h2>Unendlich viele Lösungen</h2>
+        <div class="values">
+          @for (row of generalRows; track $index) {
+            <span class="value">
+              {{ row.label }} = {{ row.expr }}
+              @if (row.free) { <span class="free">(frei)</span> }
+            </span>
+          }
+        </div>
+        <details class="trace">
+          <summary>Rechenweg anzeigen</summary>
+          @for (step of steps; track $index) {
+            <div class="step">
+              <p class="step-caption">{{ step.caption }}</p>
+              @if (step.ops.length) {
+                <p class="step-ops">
+                  @for (op of step.ops; track $index) { <span>{{ op }}</span> }
+                </p>
+              }
+              <div class="matrix">
+                @for (row of step.matrix; track $index) {
+                  <div class="matrix-row">
+                    @for (cell of row; track $index; let j = $index) {
+                      <span class="cell" [class.aug]="j === row.length - 1">{{ cell }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </details>
       </section>
     }
   </div>
