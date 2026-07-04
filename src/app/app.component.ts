@@ -4,9 +4,10 @@ import { VektorRechnerService } from './vektor-rechner.service';
 var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent {
   title = 'math-matrix';
