@@ -1,6 +1,6 @@
 {
-    "name": "MathMatrix",
-    "short_name": "MathMatrix",
+    "name": "Gleichungslöser",
+    "short_name": "Gleichungen",
     "theme_color": "#fbfaf7",
     "background_color": "#fbfaf7",
     "display": "standalone",
