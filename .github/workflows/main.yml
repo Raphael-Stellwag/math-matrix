@@ -3,16 +3,19 @@ name: Build & Publish app
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
       - name: version increase
         run: |
           git config user.name github-actions
@@ -20,11 +23,12 @@ jobs:
           npm version patch --force -m "Version %s"
           git push
           git push --tags
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v2
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BASE_BRANCH: main
-          BRANCH: gh-pages
-          FOLDER: dist/browser
-          BUILD_SCRIPT: npm install && npm run build:prod
+      - name: Build
+        run: |
+          npm ci
+          npm run build:prod
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist/browser
