@@ -22,10 +22,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('math-matrix');
   });
 
-  it('should render title', () => {
+  it('should render the calculate button', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('math-matrix app is running!');
+    expect(compiled.querySelector('button').textContent).toContain('Berechnen');
   });
 });
