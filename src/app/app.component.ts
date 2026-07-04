@@ -14,7 +14,7 @@ export class AppComponent {
   anzahl_unbekannte: string = '3';
   bool_natuerlich = true;
   show_results = false;
-  results = {};
+  results: number[] = [];
 
   constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){}
 
