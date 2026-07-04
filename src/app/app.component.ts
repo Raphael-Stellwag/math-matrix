@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { VektorRechnerService } from './vektor-rechner.service';
 var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
@@ -7,6 +7,7 @@ var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AppComponent {
