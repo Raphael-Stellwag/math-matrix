@@ -78,18 +78,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "math-matrix:build"
+            "buildTarget": "math-matrix:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "math-matrix:build:production"
+              "buildTarget": "math-matrix:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "math-matrix:build"
+            "buildTarget": "math-matrix:build"
           }
         },
         "test": {
