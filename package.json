@@ -23,7 +23,7 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^22.0.5",
+    "@angular/build": "^22.0.5",
     "@angular/cli": "^22.0.5",
     "@angular/compiler-cli": "^22.0.5",
     "@angular/language-service": "^22.0.5",
@@ -43,5 +43,12 @@
     "karma-jasmine-html-reporter": "^2.2.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "8.60.1"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "esbuild@0.28.1": true,
+    "@parcel/watcher@2.5.6": true,
+    "lmdb@3.5.4": true,
+    "msgpackr-extract@3.0.4": true
   }
 }
