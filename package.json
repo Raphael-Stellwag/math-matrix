@@ -20,7 +20,6 @@
     "@angular/material": "^22.0.3",
     "@angular/platform-browser": "^22.0.5",
     "@angular/platform-browser-dynamic": "^22.0.5",
-    "@angular/pwa": "^0.1100.4",
     "@angular/router": "^22.0.5",
     "@angular/service-worker": "^22.0.5",
     "angular-cli-ghpages": "^3.1.0",
