@@ -2,13 +2,18 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy, inject } from '@
 
 import { VektorRechnerService } from './vektor-rechner.service';
 import * as linear from 'linear-solve';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatFormField, MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRowDef, MatRow, MatHeaderRowDef, MatHeaderRow } from '@angular/material/table';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [MatRadioGroup, MatRadioButton, MatFormField, MatInput, FormsModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRowDef, MatRow, MatHeaderRowDef, MatHeaderRow, MatButton]
 })
 export class AppComponent {
   private changeDetectorRefs = inject(ChangeDetectorRef);
