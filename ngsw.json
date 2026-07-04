@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1608139309955,
+  "timestamp": 1783198042889,
   "index": "https://raphael-stellwag.github.io/math-matrix/index.html",
   "assetGroups": [
     {
@@ -13,14 +13,10 @@
       "urls": [
         "https://raphael-stellwag.github.io/math-matrix/favicon.ico",
         "https://raphael-stellwag.github.io/math-matrix/index.html",
-        "https://raphael-stellwag.github.io/math-matrix/main-es2015.09519aeb9020d7f3ea11.js",
-        "https://raphael-stellwag.github.io/math-matrix/main-es5.09519aeb9020d7f3ea11.js",
+        "https://raphael-stellwag.github.io/math-matrix/main-RQ2OQ6EY.js",
         "https://raphael-stellwag.github.io/math-matrix/manifest.webmanifest",
-        "https://raphael-stellwag.github.io/math-matrix/polyfills-es2015.354147d04e2e8b339d3f.js",
-        "https://raphael-stellwag.github.io/math-matrix/polyfills-es5.f9238c9ec1bd90aceae1.js",
-        "https://raphael-stellwag.github.io/math-matrix/runtime-es2015.a1ac991fc00ebf39524f.js",
-        "https://raphael-stellwag.github.io/math-matrix/runtime-es5.a1ac991fc00ebf39524f.js",
-        "https://raphael-stellwag.github.io/math-matrix/styles.247007857ab9dc63d9bd.css"
+        "https://raphael-stellwag.github.io/math-matrix/polyfills-5FDKUQTZ.js",
+        "https://raphael-stellwag.github.io/math-matrix/styles-Q6OYJU7D.css"
       ],
       "patterns": []
     },
@@ -32,7 +28,6 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://raphael-stellwag.github.io/math-matrix/assets/Screenshot 2020-12-16 180945.png",
         "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-144-144.png",
         "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-192-192.png",
         "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-48-48.png",
@@ -131,7 +126,6 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://raphael-stellwag.github.io/math-matrix/assets/Screenshot 2020-12-16 180945.png": "3cd6326d03158e7bcc3f77b0554c124aa76b75a2",
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-144-144.png": "4cfea3883990942274154a9970b02380c0d77bed",
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-192-192.png": "79113fdabf7e789db5693f6f92915e10e37d1a48",
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/android/android-launchericon-48-48.png": "487323b0a116090c71d8535278ddd9da6218cab0",
@@ -225,15 +219,11 @@
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/windows10/Wide310x150Logo.scale-200.png": "fcf684027d2d98ba3174fcf8487828efc68b8652",
     "https://raphael-stellwag.github.io/math-matrix/assets/icons/windows10/Wide310x150Logo.scale-400.png": "6a937033a551587658643c86eb3c69f8dbb29931",
     "https://raphael-stellwag.github.io/math-matrix/favicon.ico": "745b85bbfb091eb1e6cdb946a725bc9e39a6ec8b",
-    "https://raphael-stellwag.github.io/math-matrix/index.html": "4f5911d29f913493bccf9b57f53632b865d5ccf1",
-    "https://raphael-stellwag.github.io/math-matrix/main-es2015.09519aeb9020d7f3ea11.js": "dc3d52847ede5ca77a49a77a44c9e67eb77a8e73",
-    "https://raphael-stellwag.github.io/math-matrix/main-es5.09519aeb9020d7f3ea11.js": "8c4adba8c2910d34c2872653b31343d08dd6923d",
-    "https://raphael-stellwag.github.io/math-matrix/manifest.webmanifest": "235072d710557482b2cb6c5db61465ad6fcb3762",
-    "https://raphael-stellwag.github.io/math-matrix/polyfills-es2015.354147d04e2e8b339d3f.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
-    "https://raphael-stellwag.github.io/math-matrix/polyfills-es5.f9238c9ec1bd90aceae1.js": "c59d298dbf0c1118aa1121419b97348fd31aa857",
-    "https://raphael-stellwag.github.io/math-matrix/runtime-es2015.a1ac991fc00ebf39524f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://raphael-stellwag.github.io/math-matrix/runtime-es5.a1ac991fc00ebf39524f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://raphael-stellwag.github.io/math-matrix/styles.247007857ab9dc63d9bd.css": "7944ffabc7cf6cf74951f79f342631bed75d5c0b"
+    "https://raphael-stellwag.github.io/math-matrix/index.html": "7c5c1a4d097e6d498911a4e097f4da9778e2be95",
+    "https://raphael-stellwag.github.io/math-matrix/main-RQ2OQ6EY.js": "96c5b9a1bf9cb9aa2fd2d3c2a6f8615896ca2b72",
+    "https://raphael-stellwag.github.io/math-matrix/manifest.webmanifest": "c763afe16557938670bf5983bfa20f5553da31bd",
+    "https://raphael-stellwag.github.io/math-matrix/polyfills-5FDKUQTZ.js": "aae1dda5ce0dc87ff4ccd4a96bfca1ae11e45f67",
+    "https://raphael-stellwag.github.io/math-matrix/styles-Q6OYJU7D.css": "863cf2286123aaf9b5b8116af4646d9c6052064f"
   },
   "navigationUrls": [
     {
