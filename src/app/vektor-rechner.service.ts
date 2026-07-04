@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class VektorRechnerService {
 
-  constructor() { }
-
   /**
    * Solves A.x = b via Gauss-Jordan elimination with partial pivoting.
    * Returns null if the system has no unique solution (singular matrix,
