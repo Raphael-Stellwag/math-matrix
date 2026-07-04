@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { VektorRechnerService } from './vektor-rechner.service';
-var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
 
 @Component({
     selector: 'app-root',
@@ -64,16 +63,19 @@ export class AppComponent {
     }
 
     // Add new rows to the datasource
-    let obj = {};
     this.displayedColumns = ["Nr"]
     for (let index = 1; index <= parseInt(this.anzahl_unbekannte); index++) {
-      obj[index] = 0;
       this.displayedColumns.push(index + "");
     }
     this.displayedColumns.push("Summe");
-    obj['Summe'] = 0;
     for (let index = 0; index < countNewRows; index++) {
-      this.dataSource.push(obj);          
+      // a fresh object per row - a shared one would alias the rows
+      let obj = {};
+      for (let col = 1; col <= parseInt(this.anzahl_unbekannte); col++) {
+        obj[col] = 0;
+      }
+      obj['Summe'] = 0;
+      this.dataSource.push(obj);
     }
 
   }
@@ -97,10 +99,16 @@ export class AppComponent {
     for(let row of this.dataSource) {
       let newMatrixRow = [];
       for(let key of Object.keys(row)) {
+        let value = parseFloat(row[key]);
+        if (isNaN(value)) {
+          this.show_results = false;
+          alert("Bitte alle Felder mit Zahlen füllen");
+          return;
+        }
         if (key == "Summe") {
-          sum.push(parseInt(row[key]));
+          sum.push(value);
         } else {
-          newMatrixRow.push(parseInt(row[key]));
+          newMatrixRow.push(value);
         }
       }
       matrix.push(newMatrixRow);
@@ -108,19 +116,14 @@ export class AppComponent {
     console.log(matrix);
     console.log(sum);
 
-    this.results = null;
-    try {
-      
-      this.results = linear.solve(matrix, sum);
-      if (this.results instanceof Array) {
-        this.show_results = true;
-      } else {
-        this.show_results = false;
-      }
-    } catch {
+    let solution = this.vektorRechner.solve(matrix, sum);
+    if (solution) {
+      // round away float noise like 1.9999999999999998
+      this.results = solution.map(x => Math.round(x * 1e10) / 1e10);
+      this.show_results = true;
+    } else {
       this.show_results = false;
-      alert("This is not solveable");
+      alert("Das Gleichungssystem hat keine eindeutige Lösung");
     }
-    
   }
 }
