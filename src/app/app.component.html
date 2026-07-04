@@ -1,63 +1,60 @@
-<div style="margin: 5%">
-  <mat-radio-group aria-label="Option wählen">
-    <mat-radio-button [checked]="bool_natuerlich" value="1">Natürlich</mat-radio-button>
-    <mat-radio-button disabled style="margin-left:5em" value="2">Komplex</mat-radio-button>
-  </mat-radio-group>
+<main>
+  <header>
+    <h1>MathMatrix</h1>
+    <p class="subtitle">Löst lineare Gleichungssysteme mit {{ minSize }} bis {{ maxSize }} Unbekannten.</p>
+  </header>
 
-  <mat-form-field class="example-full-width" style="margin-left:5em">
-    <input matInput type="number" placeholder="Anzahl unbekannter" [(ngModel)]="anzahl_unbekannte" (change)="sizeChanged()">
-  </mat-form-field>
-
-  <br>
-
-    <table mat-table [dataSource]="dataSource" class=" mat-elevation-z8 " style="width: 100%">
-      <ng-container matColumnDef="Nr">
-        <th mat-header-cell *matHeaderCellDef style="padding-right: 24px">Nr</th>
-        <td mat-cell *matCellDef="let element;index as i;"> {{ i + 1 }} </td>
-      </ng-container>
-
-      @for (item of anzahlUnbekannteCountArray(); track i; let i = $index) {
-        <div>
-          <ng-container matColumnDef="{{i + 1}}">
-            <th mat-header-cell *matHeaderCellDef> x{{i + 1}} </th>
-            <td mat-cell *matCellDef="let element ">
-              <mat-form-field style="width: 80px" appearance="fill">
-                <input matInput [(ngModel)]="element[i + 1]">
-              </mat-form-field>
-            </td>
-          </ng-container>
-        </div>
-      }
-
-      <ng-container matColumnDef="Summe">
-        <th mat-header-cell *matHeaderCellDef> Summe </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-form-field style="width: 80px" appearance="fill">
-            <input matInput [(ngModel)]="element.Summe">
-          </mat-form-field>
-        </td>
-      </ng-container>
-      <!-- -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    </table>
-
-    <br>
-
-      <div class="example-button-row">
-        <button mat-raised-button color="primary" (click)="calculate()">Berechnen</button>
+  <form (ngSubmit)="calculate()">
+    <div class="size-control">
+      <span id="size-label">Unbekannte</span>
+      <div class="stepper" role="group" aria-labelledby="size-label">
+        <button type="button" (click)="changeSize(-1)" [disabled]="size <= minSize" aria-label="Unbekannte entfernen">−</button>
+        <span class="size-value">{{ size }}</span>
+        <button type="button" (click)="changeSize(1)" [disabled]="size >= maxSize" aria-label="Unbekannte hinzufügen">+</button>
       </div>
-
-      @if (show_results) {
-        <div>
-          <ul>
-            @for (result of results; track result; let i = $index) {
-              <li>
-                x{{(i + 1)}}: {{result}}
-              </li>
-            }
-          </ul>
-        </div>
-      }
-
     </div>
+
+    <div class="system-scroll">
+      <div class="system" (input)="clearResults()">
+        <svg class="brace" viewBox="0 0 24 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M20 2 C10 2 12 10 12 22 L12 40 C12 47 8 50 4 50 C8 50 12 53 12 60 L12 78 C12 90 10 98 20 98"
+                fill="none" stroke="currentColor" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="equations">
+          @for (eq of equations; track $index; let i = $index) {
+            <div class="equation">
+              <span class="row-label" aria-hidden="true">{{ roman[i] }}</span>
+              @for (c of eq.coeffs; track $index; let j = $index) {
+                <input type="number" step="any" inputmode="decimal"
+                       name="c{{ i }}_{{ j }}" [(ngModel)]="eq.coeffs[j]"
+                       attr.aria-label="Koeffizient von x{{ j + 1 }} in Gleichung {{ i + 1 }}">
+                <span class="term" aria-hidden="true">x<sub>{{ j + 1 }}</sub> {{ j < size - 1 ? '+' : '=' }}</span>
+              }
+              <input type="number" step="any" inputmode="decimal"
+                     name="s{{ i }}" [(ngModel)]="eq.sum"
+                     attr.aria-label="Rechte Seite von Gleichung {{ i + 1 }}">
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <button class="solve" type="submit">Berechnen</button>
+  </form>
+
+  <div class="feedback" aria-live="polite">
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+    @if (results) {
+      <section class="solution">
+        <h2>Lösung</h2>
+        <div class="values">
+          @for (r of results; track $index; let i = $index) {
+            <span class="value">x<sub>{{ i + 1 }}</sub> = {{ r }}</span>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</main>

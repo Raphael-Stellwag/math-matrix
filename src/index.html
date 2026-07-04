@@ -1,43 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="utf-8">
-    <title>MathMatrix</title>
+    <title>MathMatrix – Lineare Gleichungssysteme lösen</title>
     <base href="./">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#1976d2">
+    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#171d1b" media="(prefers-color-scheme: dark)">
 </head>
 
 <body>
     <app-root></app-root>
-    <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <noscript>Bitte aktiviere JavaScript, um MathMatrix zu nutzen.</noscript>
 </body>
-
-<script>
-    // This is the "Offline page" service worker
-
-    // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
-
-    // Check compatibility for the browser we're running this in
-    if ("serviceWorker" in navigator) {
-        if (navigator.serviceWorker.controller) {
-            console.log("[PWA Builder] active service worker found, no need to register");
-        } else {
-            // Register the service worker
-            navigator.serviceWorker
-                .register("pwabuilder-sw.js", {
-                    scope: "./"
-                })
-                .then(function(reg) {
-                    console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
-                });
-        }
-    }
-</script>
 
 </html>
