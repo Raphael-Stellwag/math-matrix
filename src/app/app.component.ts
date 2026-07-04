@@ -1,23 +1,24 @@
-import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { VektorRechnerService } from './vektor-rechner.service';
-var linear = require("../../node_modules/linear-solve/gauss-jordan.js");
+import * as linear from 'linear-solve';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
 export class AppComponent {
+  private changeDetectorRefs = inject(ChangeDetectorRef);
+  private vektorRechner = inject(VektorRechnerService);
+
   title = 'math-matrix';
-  anzahl_unbekannte: string = '3';
+  anzahl_unbekannte = '3';
   bool_natuerlich = true;
   show_results = false;
   results: number[] = [];
-
-  constructor(private changeDetectorRefs: ChangeDetectorRef, private vektorRechner: VektorRechnerService){}
 
   displayedColumns: string[] = ['Nr', '1', '2', '3', 'Summe'];
   dataSource: object[] = [
@@ -26,14 +27,14 @@ export class AppComponent {
     {1:2, 2: 2, 3: 1, Summe: 3},
   ];
 
-  anzahlUnbekannteCountArray(): Array<number> { 
+  anzahlUnbekannteCountArray(): number[] { 
     return Array(parseInt(this.anzahl_unbekannte)); 
   } 
 
   sizeChanged() {
     this.show_results = false;
 
-    let countNewRows: number = parseInt(this.anzahl_unbekannte) - (this.displayedColumns.length - 2)
+    const countNewRows: number = parseInt(this.anzahl_unbekannte) - (this.displayedColumns.length - 2)
     if (countNewRows > 0) {
       this.addRows(countNewRows);
     } else if (countNewRows < 0) {
@@ -45,7 +46,7 @@ export class AppComponent {
 
   removeRows() {
     this.dataSource = this.deepCopyObjectArray(this.dataSource, this.anzahl_unbekannte)
-    let keys = ["Nr"];
+    const keys = ["Nr"];
     for (let index = 1; index <= parseInt(this.anzahl_unbekannte); index++) {
       keys.push(index + "");
     }
@@ -54,17 +55,17 @@ export class AppComponent {
   }
 
   addRows(countNewRows: number) {
-    let oldCountOfRows = (this.displayedColumns.length - 2); //Substract Nr and Summe
+    const oldCountOfRows = (this.displayedColumns.length - 2); //Substract Nr and Summe
     
     // Add the columns for the existing rows
-    for(let element of this.dataSource) {
+    for(const element of this.dataSource) {
       for (let index = 1; index <= countNewRows; index++) {
         element[oldCountOfRows + index] = 0;          
       }
     }
 
     // Add new rows to the datasource
-    let obj = {};
+    const obj = {};
     this.displayedColumns = ["Nr"]
     for (let index = 1; index <= parseInt(this.anzahl_unbekannte); index++) {
       obj[index] = 0;
@@ -79,7 +80,7 @@ export class AppComponent {
   }
 
   private deepCopyObjectArray(d2Array, count) {
-    let obj = [];
+    const obj = [];
     for (let index1 = 0; index1 < count; index1++) {
       obj[index1] = {"Summe": d2Array[index1]["Summe"]};
       for (let index2 = 0; index2 <count; index2++) {
@@ -92,11 +93,11 @@ export class AppComponent {
   calculate() {
     console.log(this.dataSource);
 
-    let sum = [];
-    let matrix = [];
-    for(let row of this.dataSource) {
-      let newMatrixRow = [];
-      for(let key of Object.keys(row)) {
+    const sum = [];
+    const matrix = [];
+    for(const row of this.dataSource) {
+      const newMatrixRow = [];
+      for(const key of Object.keys(row)) {
         if (key == "Summe") {
           sum.push(parseInt(row[key]));
         } else {
